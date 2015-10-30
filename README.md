@@ -11,3 +11,7 @@ repositories {
     }
 } 
 ```
+
+```groovy
+compile 'ua.zabelnikiov:swipeLayout:0.6'
+```
