@@ -14,7 +14,7 @@ Library to use swipe to close on your Layout.
 
 SwipeableLayout supports Android 4.0.0 (Ice Cream Sandwich) and later. 
 
-## Using SwipeableLayout in your application
+## Gradle Dependency (jCenter)
 
 If you are building with Gradle, simply add the following line to the `dependencies` section of your `build.gradle` file:
 
