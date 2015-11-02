@@ -1,5 +1,10 @@
 
-Demo: 
+SwipeableLayout
+================
+
+Library to use swipe to close on your Layout.
+
+Demo application: comming soon
 
 Simple Transparent Activity (Video): 
 
