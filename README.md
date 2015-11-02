@@ -66,6 +66,16 @@ If you need listener, in your code add:
         swipeableLayout.setOnLayoutPercentageChangeListener(new OnLayoutPercentageChangeListener() {
             //OnLayoutPercentageChange return value from 0 to 1,
             //where 0 - view not swiped, 1 - view swiped to action
+    
+            @Override
+            public void percentageY(float percentage) {
+             
+            }
+
+            @Override
+            public void percentageX(float percentage) {
+                
+            }
         });
         swipeableLayout.setOnSwipedListener(new OnLayoutSwipedListener() {
             @Override
