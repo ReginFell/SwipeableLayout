@@ -6,11 +6,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toolbar;
 
 import ua.zabelnikov.swipelayout.R;
 import ua.zabelnikov.swipelayout.layout.SwipeGestureManager;
@@ -69,7 +68,7 @@ public class SwipeableLayout extends FrameLayout {
     }
 
     public void initSwipeManager() {
-        SwipeGestureManager.Builder builder = new SwipeGestureManager.Builder();
+        SwipeGestureManager.Builder builder = new SwipeGestureManager.Builder(getContext());
         builder.setSwipeSpeed(swipeSpeed);
         builder.setOrientationMode(swipeOrientationMode);
         swipeManager = builder.create();
