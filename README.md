@@ -8,7 +8,7 @@ Library to use swipe to close on your Layout.
 
 [Simple Transparent Activity (Video)](https://www.youtube.com/watch?v=bY_j41duY0E&feature=youtu.be)
 
-[Transparent Activity with PagerView (Video)](https://www.youtube.com/watch?v=bY_j41duY0E&feature=youtu.be)
+[Transparent Activity with PagerView (Video)](https://www.youtube.com/watch?v=BlwmiTlm8Ro)
 
 ## Requirements
 
