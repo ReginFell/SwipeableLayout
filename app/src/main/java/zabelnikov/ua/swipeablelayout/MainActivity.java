@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import zabelnikov.ua.swipeablelayout.ui.image.ImageActivity;
+import zabelnikov.ua.swipeablelayout.ui.viewPager.ViewPagerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.pagerActivity_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                 startActivity(intent);
             }
         });

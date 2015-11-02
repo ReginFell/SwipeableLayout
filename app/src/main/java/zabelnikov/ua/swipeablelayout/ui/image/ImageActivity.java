@@ -28,11 +28,11 @@ public class ImageActivity extends AppCompatActivity {
 
             @Override
             public void percentageY(float percentage) {
-                Log.d("Y", String.valueOf(1 - percentage / 3));
-                AlphaAnimation alphaAnimation = new AlphaAnimation(lastAlpha, 1 - percentage / 3);
+                float alphaCorrector = percentage / 3;
+                AlphaAnimation alphaAnimation = new AlphaAnimation(lastAlpha, 1 - alphaCorrector);
                 alphaAnimation.setDuration(300);
                 colorFrame.startAnimation(alphaAnimation);
-                lastAlpha = 1 - percentage / 3;
+                lastAlpha = 1 - alphaCorrector;
             }
         });
         swipeableLayout.setOnSwipedListener(new OnLayoutSwipedListener() {
