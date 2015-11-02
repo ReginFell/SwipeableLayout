@@ -4,15 +4,11 @@ SwipeableLayout
 
 Library to use swipe to close on your Layout.
 
-Demo application: comming soon
+## Demo
 
-Simple Transparent Activity (Video): 
+[Simple Transparent Activity (Video)](https://www.youtube.com/watch?v=bY_j41duY0E&feature=youtu.be)
 
-[![Youtube video](https://pp.vk.me/c624217/v624217564/5232d/ngC3U5dReK4.jpg)](https://www.youtube.com/watch?v=bY_j41duY0E&feature=youtu.be)
-
-Transparent Activity with PagerView (Video): 
-
-[![Youtube video](https://pp.vk.me/c624218/v624218564/4e907/Z9kWinmUbFM.jpg )](https://youtu.be/BlwmiTlm8Ro)
+[Transparent Activity with PagerView (Video)](https://www.youtube.com/watch?v=bY_j41duY0E&feature=youtu.be)
 
 ## Requirements
 
