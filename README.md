@@ -21,7 +21,7 @@ If you are building with Gradle, simply add the following line to the `dependenc
 ```groovy
 compile 'ua.zabelnikiov:swipeLayout:0.7'
 ```
-[ ![Download](https://api.bintray.com/packages/reginfell/ua.zabelnikov/swipeLayout/images/download.svg) ](https://bintray.com/reginfell/maven/multi-image-picker/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/reginfell/ua.zabelnikov/swipeLayout/images/download.svg) ](https://bintray.com/reginfell/ua.zabelnikov/swipeLayout/_latestVersion)
 
 Getting started
 ==========
