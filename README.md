@@ -64,8 +64,8 @@ If you need listener, in your code add:
         SwipeableLayout swipeableLayout = (SwipeableLayout) findViewById(R.id.swipeableLayout);
 
         swipeableLayout.setOnLayoutPercentageChangeListener(new OnLayoutPercentageChangeListener() {
-           //OnLayoutPercentageChange return value from 0 to 1,
-           where 0 - view not swiped, 1 - view swiped to action
+            //OnLayoutPercentageChange return value from 0 to 1,
+            //where 0 - view not swiped, 1 - view swiped to action
         });
         swipeableLayout.setOnSwipedListener(new OnLayoutSwipedListener() {
             @Override
@@ -83,7 +83,6 @@ If you need listener, in your code add:
      <ua.zabelnikov.swipelayout.layout.frame.SwipeableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:swipeSpeed="3" <!-- Normal speed =*3 -->
-        app:swipeOrientation="leftToRight" <!-- you can use leftToRight, bottomToUp, both or none. (bottomToUp default) -->
-        />
+        app:swipeSpeed="3" 
+        app:swipeOrientation="leftToRight"/>
 ```
