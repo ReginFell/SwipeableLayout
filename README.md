@@ -96,6 +96,7 @@ If you need listener, in your code add:
         app:swipeSpeed="3" 
         app:swipeOrientation="leftToRight"/>
 ```
+## License:
 
 ```
 The MIT License (MIT)
