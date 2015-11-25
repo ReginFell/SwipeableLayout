@@ -24,6 +24,8 @@
         <activity
             android:name=".ui.viewPager.ViewPagerActivity"
             android:theme="@style/Transparent" />
+
+        <activity android:name=".ui.singleItem.SingleItemActivity" />
     </application>
 
 </manifest>

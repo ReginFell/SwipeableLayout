@@ -2,7 +2,6 @@ package ua.zabelnikov.swipelayout.layout;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.util.ArraySet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,15 +25,22 @@ public class SwipeGestureManager implements View.OnTouchListener {
     private final Set<Integer> blocks;
     //Configs
 
-    private int lastYPosition;
+    private float firstXPosition;
+    private float firstYPosition;
+
     private int lastXPosition;
-    private int layoutPosition;
+    private int lastYPosition;
+
+    private int currentXPosition;
+    private int currentYPosition;
 
     private final Context context;
     private final GestureDetector gestureDetector;
 
-    private SwipeGestureManager(Context context, float swipeSpeed, int orientationMode) {
+    private SwipeGestureManager(Context context, float startX, float startY, float swipeSpeed, int orientationMode) {
         this.context = context;
+        firstXPosition = startX;
+        firstYPosition = startY;
         this.swipeSpeed = swipeSpeed;
         this.orientationMode = orientationMode;
         this.blocks = new HashSet<>();
@@ -52,7 +58,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 status = swipeByY(view, event);
                 break;
             case OrientationMode.BOTH:
-                status = swipeByX(view, event) && swipeByY(view, event);
+                status = swipeByY(view, event) && swipeByX(view, event);
                 break;
             default:
                 status = false;
@@ -67,18 +73,19 @@ public class SwipeGestureManager implements View.OnTouchListener {
             }
 
             final int y = (int) event.getRawY();
+
             int height = view.getHeight();
             float dif = Math.abs(view.getY()) / (height / 4);
 
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 lastYPosition = y;
-                layoutPosition = (int) view.getY();
+                currentYPosition = (int) view.getY();
 
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
                 int diffY = y - lastYPosition;
 
-                view.setY(layoutPosition + (diffY * swipeSpeed));
+                view.setY(currentYPosition + (diffY * swipeSpeed));
 
                 if (onLayoutPercentageChangeListener != null) {
                     onLayoutPercentageChangeListener.percentageY(dif > 1 ? 1.0f : dif);
@@ -89,7 +96,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
-                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "y", view.getY(), 0);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "y", view.getY(), firstYPosition);
                 animator.setDuration(300);
                 animator.start();
             }
@@ -109,12 +116,12 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 lastXPosition = x;
-                layoutPosition = (int) view.getX();
+                currentXPosition = (int) view.getX();
 
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
                 int diffX = x - lastXPosition;
-                view.setX(layoutPosition + (diffX * swipeSpeed));
+                view.setX(currentXPosition + (diffX * swipeSpeed));
 
                 if (onLayoutPercentageChangeListener != null) {
                     onLayoutPercentageChangeListener.percentageX(dif > 1 ? 1.0f : dif);
@@ -125,7 +132,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
-                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "x", view.getX(), 0);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "x", view.getX(), firstXPosition);
                 animator.setDuration(300);
                 animator.start();
             }
@@ -140,10 +147,10 @@ public class SwipeGestureManager implements View.OnTouchListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (Math.abs(velocityY) > sensitivity && !blocks.contains(OrientationMode.UP_BOTTOM)) {
-                onSwipedListener.onLayoutSwiped();
+                triggerSwipeListener();
                 return true;
             } else if (Math.abs(velocityX) > sensitivity && !blocks.contains(OrientationMode.LEFT_RIGHT)) {
-                onSwipedListener.onLayoutSwiped();
+                triggerSwipeListener();
                 return true;
             } else {
                 return false;
@@ -178,6 +185,8 @@ public class SwipeGestureManager implements View.OnTouchListener {
         private final Context context;
         private float mSwipeSpeed;
         private int mOrientationMode;
+        private float startX;
+        private float startY;
 
         public Builder(Context context) {
             this.context = context;
@@ -191,8 +200,17 @@ public class SwipeGestureManager implements View.OnTouchListener {
             this.mOrientationMode = orientationMode;
         }
 
+        public void setStartCoordinates(float startX, float startY) {
+            this.startX = startX;
+            this.startY = startY;
+        }
+
+        public void setStartX(int startX) {
+            this.startX = startX;
+        }
+
         public SwipeGestureManager create() {
-            return new SwipeGestureManager(context, mSwipeSpeed, mOrientationMode);
+            return new SwipeGestureManager(context, startX, startY, mSwipeSpeed, mOrientationMode);
         }
     }
 
