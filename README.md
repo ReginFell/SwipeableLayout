@@ -96,6 +96,11 @@ If you need listener, in your code add:
         app:swipeSpeed="3" 
         app:swipeOrientation="leftToRight"/>
 ```
+
+## Changelog
+
+[Changelog](https://github.com/ReginFell/SwipeableLayout/wiki/Changelog)
+
 ## License:
 
 ```
