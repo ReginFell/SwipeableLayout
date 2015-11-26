@@ -7,5 +7,4 @@ public abstract class OnLayoutPercentageChangeListener {
 
     public void percentageY(float percentage) {
     }
-
 }

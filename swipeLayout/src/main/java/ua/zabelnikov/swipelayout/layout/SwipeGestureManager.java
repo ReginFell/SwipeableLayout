@@ -9,6 +9,7 @@ import android.view.View;
 import java.util.HashSet;
 import java.util.Set;
 
+import ua.zabelnikov.swipelayout.layout.listener.LayoutPositionListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutPercentageChangeListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutSwipedListener;
 
@@ -17,12 +18,13 @@ public class SwipeGestureManager implements View.OnTouchListener {
     //Listeners
     private OnLayoutSwipedListener onSwipedListener;
     private OnLayoutPercentageChangeListener onLayoutPercentageChangeListener;
+    private LayoutPositionListener layoutPositionListener;
     //Listeners
 
     // Configs
     private final float swipeSpeed;
     private final int orientationMode;
-    private final Set<Integer> blocks;
+    private Set<Integer> blocks;
     //Configs
 
     private float firstXPosition;
@@ -33,6 +35,9 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
     private int currentXPosition;
     private int currentYPosition;
+
+    private int shiftX;
+    private int shiftY;
 
     private final Context context;
     private final GestureDetector gestureDetector;
@@ -83,15 +88,19 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
-                int diffY = y - lastYPosition;
+                shiftY = y - lastYPosition;
 
-                view.setY(currentYPosition + (diffY * swipeSpeed));
+                view.setY(currentYPosition + (shiftY * swipeSpeed));
 
                 if (onLayoutPercentageChangeListener != null) {
                     onLayoutPercentageChangeListener.percentageY(dif > 1 ? 1.0f : dif);
                 }
 
+                triggerPositionChangeListener(shiftX, shiftY, true);
+
             } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+
+                triggerPositionChangeListener(shiftX, shiftY, false);
 
                 if (dif > 1.0) {
                     triggerSwipeListener();
@@ -120,14 +129,18 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
-                int diffX = x - lastXPosition;
-                view.setX(currentXPosition + (diffX * swipeSpeed));
+                shiftX = x - lastXPosition;
+                view.setX(currentXPosition + (shiftX * swipeSpeed));
 
                 if (onLayoutPercentageChangeListener != null) {
                     onLayoutPercentageChangeListener.percentageX(dif > 1 ? 1.0f : dif);
                 }
 
+                triggerPositionChangeListener(shiftX, shiftY, true);
+
             } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+
+                triggerPositionChangeListener(shiftX, shiftY, true);
 
                 if (dif > 1.0) {
                     triggerSwipeListener();
@@ -162,6 +175,10 @@ public class SwipeGestureManager implements View.OnTouchListener {
         blocks.add(orientationMode);
     }
 
+    public void setBlockSet(Set<Integer> blockSet) {
+        this.blocks.addAll(blockSet);
+    }
+
     public void removeBlock(int orientationMode) {
         blocks.remove(orientationMode);
     }
@@ -174,9 +191,19 @@ public class SwipeGestureManager implements View.OnTouchListener {
         this.onLayoutPercentageChangeListener = onLayoutPercentageChangeListener;
     }
 
+    public void setLayoutPositionListener(LayoutPositionListener layoutPositionListener) {
+        this.layoutPositionListener = layoutPositionListener;
+    }
+
     private void triggerSwipeListener() {
         if (onSwipedListener != null) {
             onSwipedListener.onLayoutSwiped();
+        }
+    }
+
+    private void triggerPositionChangeListener(float positionX, float positionY, boolean state) {
+        if (layoutPositionListener != null) {
+            layoutPositionListener.onPositionChanged(positionX, positionY, state);
         }
     }
 

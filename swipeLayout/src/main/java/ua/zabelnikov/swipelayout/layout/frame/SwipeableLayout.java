@@ -8,8 +8,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import ua.zabelnikov.swipelayout.R;
 import ua.zabelnikov.swipelayout.layout.SwipeGestureManager;
+import ua.zabelnikov.swipelayout.layout.listener.LayoutPositionListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutPercentageChangeListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutSwipedListener;
 
@@ -18,6 +22,12 @@ public class SwipeableLayout extends FrameLayout {
     private float swipeSpeed;
     private SwipeGestureManager swipeManager;
     private int swipeOrientationMode;
+
+    private final Set<Integer> blocks = new HashSet<>();
+
+    private OnLayoutSwipedListener onLayoutSwipedListener;
+    private OnLayoutPercentageChangeListener onLayoutPercentageChangeListener;
+    private LayoutPositionListener layoutPositionListener;
 
     public SwipeableLayout(Context context) {
         super(context);
@@ -69,6 +79,8 @@ public class SwipeableLayout extends FrameLayout {
         swipeManager = builder.create();
         swipeManager.setOnLayoutPercentageChangeListener(onLayoutPercentageChangeListener);
         swipeManager.setOnSwipedListener(onLayoutSwipedListener);
+        swipeManager.setBlockSet(blocks);
+        swipeManager.setLayoutPositionListener(layoutPositionListener);
         this.setOnTouchListener(swipeManager);
     }
 
@@ -79,15 +91,20 @@ public class SwipeableLayout extends FrameLayout {
     }
 
     public void addBlock(int orientationMode) {
-        swipeManager.addBlock(orientationMode);
+        if (swipeManager != null) {
+            swipeManager.addBlock(orientationMode);
+        } else {
+            blocks.add(orientationMode);
+        }
     }
 
     public void removeBlock(int orientationMode) {
-        swipeManager.removeBlock(orientationMode);
+        if (swipeManager != null) {
+            swipeManager.removeBlock(orientationMode);
+        } else {
+            blocks.remove(orientationMode);
+        }
     }
-
-    private OnLayoutSwipedListener onLayoutSwipedListener;
-    private OnLayoutPercentageChangeListener onLayoutPercentageChangeListener;
 
     public void setOnSwipedListener(OnLayoutSwipedListener onLayoutSwipedListener) {
         this.onLayoutSwipedListener = onLayoutSwipedListener;
@@ -95,5 +112,9 @@ public class SwipeableLayout extends FrameLayout {
 
     public void setOnLayoutPercentageChangeListener(OnLayoutPercentageChangeListener onLayoutPercentageChangeListener) {
         this.onLayoutPercentageChangeListener = onLayoutPercentageChangeListener;
+    }
+
+    public void setLayoutPositionListener(LayoutPositionListener layoutPositionListener) {
+        this.layoutPositionListener = layoutPositionListener;
     }
 }
