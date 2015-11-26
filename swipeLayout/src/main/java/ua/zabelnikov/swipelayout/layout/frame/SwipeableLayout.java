@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -31,6 +32,7 @@ public class SwipeableLayout extends FrameLayout {
 
     public SwipeableLayout(Context context) {
         super(context);
+        inflateAttributes(context, null);
     }
 
     public SwipeableLayout(Context context, AttributeSet attrs) {
@@ -49,7 +51,7 @@ public class SwipeableLayout extends FrameLayout {
         inflateAttributes(context, attrs);
     }
 
-    private void inflateAttributes(Context context, AttributeSet attributeSet) {
+    private void inflateAttributes(Context context, @Nullable AttributeSet attributeSet) {
 
         swipeSpeed = 1.0f;
         swipeOrientationMode = SwipeGestureManager.OrientationMode.UP_BOTTOM;
