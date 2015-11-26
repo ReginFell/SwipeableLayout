@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import ua.zabelnikov.swipelayout.layout.frame.SwipeableLayout;
-import ua.zabelnikov.swipelayout.layout.listener.LayoutPositionListener;
+import ua.zabelnikov.swipelayout.layout.listener.LayoutShiftListener;
 import zabelnikov.ua.swipeablelayout.R;
 
 public class SingleItemActivity extends AppCompatActivity {
@@ -20,9 +20,9 @@ public class SingleItemActivity extends AppCompatActivity {
 
         swipeableLayout.addBlock(1);
 
-        swipeableLayout.setLayoutPositionListener(new LayoutPositionListener() {
+        swipeableLayout.setLayoutShiftListener(new LayoutShiftListener() {
             @Override
-            public void onPositionChanged(float positionX, float positionY, boolean isTouched) {
+            public void onLayoutShifted(float positionX, float positionY, boolean isTouched) {
                 Log.d("positionX", String.valueOf(positionX));
                 Log.d("positionY", String.valueOf(positionY));
                 Log.d("isTouched", String.valueOf(isTouched));

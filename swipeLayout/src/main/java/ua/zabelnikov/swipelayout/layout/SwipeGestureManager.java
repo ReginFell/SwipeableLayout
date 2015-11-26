@@ -9,7 +9,7 @@ import android.view.View;
 import java.util.HashSet;
 import java.util.Set;
 
-import ua.zabelnikov.swipelayout.layout.listener.LayoutPositionListener;
+import ua.zabelnikov.swipelayout.layout.listener.LayoutShiftListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutPercentageChangeListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutSwipedListener;
 
@@ -18,7 +18,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
     //Listeners
     private OnLayoutSwipedListener onSwipedListener;
     private OnLayoutPercentageChangeListener onLayoutPercentageChangeListener;
-    private LayoutPositionListener layoutPositionListener;
+    private LayoutShiftListener layoutShiftListener;
     //Listeners
 
     // Configs
@@ -191,8 +191,8 @@ public class SwipeGestureManager implements View.OnTouchListener {
         this.onLayoutPercentageChangeListener = onLayoutPercentageChangeListener;
     }
 
-    public void setLayoutPositionListener(LayoutPositionListener layoutPositionListener) {
-        this.layoutPositionListener = layoutPositionListener;
+    public void setLayoutShiftListener(LayoutShiftListener layoutShiftListener) {
+        this.layoutShiftListener = layoutShiftListener;
     }
 
     private void triggerSwipeListener() {
@@ -202,8 +202,8 @@ public class SwipeGestureManager implements View.OnTouchListener {
     }
 
     private void triggerPositionChangeListener(float positionX, float positionY, boolean state) {
-        if (layoutPositionListener != null) {
-            layoutPositionListener.onPositionChanged(positionX, positionY, state);
+        if (layoutShiftListener != null) {
+            layoutShiftListener.onLayoutShifted(positionX, positionY, state);
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import ua.zabelnikov.swipelayout.R;
 import ua.zabelnikov.swipelayout.layout.SwipeGestureManager;
-import ua.zabelnikov.swipelayout.layout.listener.LayoutPositionListener;
+import ua.zabelnikov.swipelayout.layout.listener.LayoutShiftListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutPercentageChangeListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutSwipedListener;
 
@@ -27,7 +27,7 @@ public class SwipeableLayout extends FrameLayout {
 
     private OnLayoutSwipedListener onLayoutSwipedListener;
     private OnLayoutPercentageChangeListener onLayoutPercentageChangeListener;
-    private LayoutPositionListener layoutPositionListener;
+    private LayoutShiftListener layoutShiftListener;
 
     public SwipeableLayout(Context context) {
         super(context);
@@ -80,7 +80,7 @@ public class SwipeableLayout extends FrameLayout {
         swipeManager.setOnLayoutPercentageChangeListener(onLayoutPercentageChangeListener);
         swipeManager.setOnSwipedListener(onLayoutSwipedListener);
         swipeManager.setBlockSet(blocks);
-        swipeManager.setLayoutPositionListener(layoutPositionListener);
+        swipeManager.setLayoutShiftListener(layoutShiftListener);
         this.setOnTouchListener(swipeManager);
     }
 
@@ -114,7 +114,7 @@ public class SwipeableLayout extends FrameLayout {
         this.onLayoutPercentageChangeListener = onLayoutPercentageChangeListener;
     }
 
-    public void setLayoutPositionListener(LayoutPositionListener layoutPositionListener) {
-        this.layoutPositionListener = layoutPositionListener;
+    public void setLayoutShiftListener(LayoutShiftListener layoutShiftListener) {
+        this.layoutShiftListener = layoutShiftListener;
     }
 }
