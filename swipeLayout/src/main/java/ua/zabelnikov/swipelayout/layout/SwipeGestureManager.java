@@ -22,8 +22,8 @@ public class SwipeGestureManager implements View.OnTouchListener {
     //Listeners
 
     // Configs
-    private final float swipeSpeed;
-    private final int orientationMode;
+    private float swipeSpeed;
+    private int orientationMode;
     private Set<Integer> blocks;
     //Configs
 
@@ -181,6 +181,14 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
     public void removeBlock(int orientationMode) {
         blocks.remove(orientationMode);
+    }
+
+    public void setSwipeSpeed(int swipeSpeed) {
+        this.swipeSpeed = swipeSpeed;
+    }
+
+    public void setOrientationMode(int orientationMode) {
+        this.orientationMode = orientationMode;
     }
 
     public void setOnSwipedListener(OnLayoutSwipedListener onSwipedListener) {
