@@ -109,14 +109,22 @@ public class SwipeableLayout extends FrameLayout {
     }
 
     public void setSwipeSpeed(int swipeSpeed) {
-        swipeManager.setSwipeSpeed(swipeSpeed);
+        if (swipeManager != null) {
+            swipeManager.setSwipeSpeed(swipeSpeed);
+        } else {
+            this.swipeSpeed = swipeSpeed;
+        }
     }
 
     /**
      * @param orientationMode 0 - LEFT_RIGHT , 1 - UP_BOTTOM, 2 - BOTH, 3 - NONE
      */
     public void setSwipeOrientationMode(int orientationMode) {
-        swipeManager.setOrientationMode(orientationMode);
+        if (swipeManager != null) {
+            swipeManager.setOrientationMode(orientationMode);
+        } else {
+            swipeOrientationMode = orientationMode;
+        }
     }
 
     public void setOnSwipedListener(OnLayoutSwipedListener onLayoutSwipedListener) {
