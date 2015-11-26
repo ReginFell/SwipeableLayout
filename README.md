@@ -19,7 +19,7 @@ SwipeableLayout supports Android 4.0.0 (Ice Cream Sandwich) and later.
 If you are building with Gradle, simply add the following line to the `dependencies` section of your `build.gradle` file:
 
 ```groovy
-compile 'ua.zabelnikiov:swipeLayout:0.8'
+compile 'ua.zabelnikiov:swipeLayout:0.9'
 ```
 [ ![Download](https://api.bintray.com/packages/reginfell/ua.zabelnikov/swipeLayout/images/download.svg) ](https://bintray.com/reginfell/ua.zabelnikov/swipeLayout/_latestVersion)
 
@@ -85,6 +85,17 @@ If you need listener, in your code add:
         });
     }
 
+```
+
+Also you can set Shifte listener:
+
+```java
+   swipeableLayout.setLayoutShiftListener(new LayoutShiftListener() {
+            @Override
+            public void onLayoutShifted(float positionX, float positionY, boolean isTouched) {
+             //DO SOME YOUR LOGIC
+            }
+        });
 ```
 
 ## List of supported attributes:
