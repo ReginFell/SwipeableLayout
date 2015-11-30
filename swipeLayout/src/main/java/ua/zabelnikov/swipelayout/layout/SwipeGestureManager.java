@@ -2,6 +2,7 @@ package ua.zabelnikov.swipelayout.layout;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +39,8 @@ public class SwipeGestureManager implements View.OnTouchListener {
 
     private int shiftX;
     private int shiftY;
+
+    private int lastMotion = -1;
 
     private final Context context;
     private final GestureDetector gestureDetector;
@@ -85,7 +88,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 lastYPosition = y;
                 currentYPosition = (int) view.getY();
-
+                lastMotion = MotionEvent.ACTION_DOWN;
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
                 shiftY = y - lastYPosition;
@@ -97,11 +100,10 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 }
 
                 triggerPositionChangeListener(shiftX, shiftY, true);
-
+                lastMotion = MotionEvent.ACTION_MOVE;
             } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-
                 triggerPositionChangeListener(shiftX, shiftY, false);
-
+                lastMotion = MotionEvent.ACTION_UP;
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
@@ -126,7 +128,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 lastXPosition = x;
                 currentXPosition = (int) view.getX();
-
+                lastMotion = MotionEvent.ACTION_DOWN;
             } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 
                 shiftX = x - lastXPosition;
@@ -137,11 +139,10 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 }
 
                 triggerPositionChangeListener(shiftX, shiftY, true);
-
+                lastMotion = MotionEvent.ACTION_MOVE;
             } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-
-                triggerPositionChangeListener(shiftX, shiftY, true);
-
+                triggerPositionChangeListener(shiftX, shiftY, false);
+                lastMotion = MotionEvent.ACTION_UP;
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
@@ -210,7 +211,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
     }
 
     private void triggerPositionChangeListener(float positionX, float positionY, boolean state) {
-        if (layoutShiftListener != null) {
+        if (layoutShiftListener != null && lastMotion != MotionEvent.ACTION_UP) {
             layoutShiftListener.onLayoutShifted(positionX, positionY, state);
         }
     }

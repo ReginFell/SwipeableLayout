@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 
 import ua.zabelnikov.swipelayout.layout.frame.SwipeableLayout;
+import ua.zabelnikov.swipelayout.layout.listener.LayoutShiftListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutPercentageChangeListener;
 import ua.zabelnikov.swipelayout.layout.listener.OnLayoutSwipedListener;
 import zabelnikov.ua.swipeablelayout.R;
@@ -39,6 +40,13 @@ public class ImageActivity extends AppCompatActivity {
             @Override
             public void onLayoutSwiped() {
                 ImageActivity.this.finish();
+            }
+        });
+
+        swipeableLayout.setLayoutShiftListener(new LayoutShiftListener() {
+            @Override
+            public void onLayoutShifted(float positionX, float positionY, boolean isTouched) {
+                Log.e("Swipelayout", "isTouched = " + isTouched);
             }
         });
     }
