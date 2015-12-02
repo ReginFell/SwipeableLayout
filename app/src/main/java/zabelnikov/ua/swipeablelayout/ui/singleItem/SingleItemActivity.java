@@ -18,8 +18,6 @@ public class SingleItemActivity extends AppCompatActivity {
 
         SwipeableLayout swipeableLayout = (SwipeableLayout) findViewById(R.id.swipeableLayout);
 
-        swipeableLayout.addBlock(1);
-
         swipeableLayout.setLayoutShiftListener(new LayoutShiftListener() {
             @Override
             public void onLayoutShifted(float positionX, float positionY, boolean isTouched) {

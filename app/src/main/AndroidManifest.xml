@@ -26,6 +26,7 @@
             android:theme="@style/Transparent" />
 
         <activity android:name=".ui.singleItem.SingleItemActivity" />
+        <activity android:name=".ui.listView.ListViewActivity" />
     </application>
 
 </manifest>

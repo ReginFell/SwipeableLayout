@@ -107,9 +107,9 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
-                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "y", view.getY(), firstYPosition);
-                animator.setDuration(300);
-                animator.start();
+                rollback(view, "y", view.getY(), firstYPosition);
+            } else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+                return false;
             }
         }
         return true;
@@ -146,12 +146,19 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 if (dif > 1.0) {
                     triggerSwipeListener();
                 }
-                ObjectAnimator animator = ObjectAnimator.ofFloat(view, "x", view.getX(), firstXPosition);
-                animator.setDuration(300);
-                animator.start();
+                rollback(view, "x", view.getX(), firstXPosition);
+            } else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+               return false;
             }
         }
+        Log.d("Motion", String.valueOf(event.getActionMasked()));
         return true;
+    }
+
+    private void rollback(View view, String axis, float fromPosition, float startPosition) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, axis, fromPosition, startPosition);
+        animator.setDuration(300);
+        animator.start();
     }
 
     class FlingGestureDetector extends GestureDetector.SimpleOnGestureListener {

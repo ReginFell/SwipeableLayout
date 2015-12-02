@@ -23,6 +23,7 @@ public class SwipeableLayout extends FrameLayout {
     private float swipeSpeed;
     private SwipeGestureManager swipeManager;
     private int swipeOrientationMode;
+    private boolean scrollAndClickable;
 
     private final Set<Integer> blocks = new HashSet<>();
 
@@ -61,6 +62,7 @@ public class SwipeableLayout extends FrameLayout {
             try {
                 swipeSpeed = attributes.getFloat(R.styleable.SwipeableLayout_swipeSpeed, swipeSpeed);
                 swipeOrientationMode = attributes.getInt(R.styleable.SwipeableLayout_swipeOrientation, swipeOrientationMode);
+                scrollAndClickable = attributes.getBoolean(R.styleable.SwipeableLayout_scrollAndClickable, scrollAndClickable);
             } finally {
                 attributes.recycle();
             }
@@ -69,7 +71,9 @@ public class SwipeableLayout extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        super.dispatchTouchEvent(ev);
+        if (scrollAndClickable) {
+            super.dispatchTouchEvent(ev);
+        }
         return swipeManager.onTouch(this, ev);
     }
 
