@@ -148,7 +148,7 @@ public class SwipeGestureManager implements View.OnTouchListener {
                 }
                 rollback(view, "x", view.getX(), firstXPosition);
             } else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
-               return false;
+                return false;
             }
         }
         Log.d("Motion", String.valueOf(event.getActionMasked()));
@@ -169,13 +169,10 @@ public class SwipeGestureManager implements View.OnTouchListener {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (Math.abs(velocityY) > sensitivity && !blocks.contains(OrientationMode.UP_BOTTOM)) {
                 triggerSwipeListener();
-                return true;
             } else if (Math.abs(velocityX) > sensitivity && !blocks.contains(OrientationMode.LEFT_RIGHT)) {
                 triggerSwipeListener();
-                return true;
-            } else {
-                return false;
             }
+            return false;
         }
     }
 
